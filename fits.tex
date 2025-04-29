@@ -1,0 +1,152 @@
+\documentclass[20pt,landscape]{foils}
+\usepackage{mbtslides}
+\usepackage[english]{babel}
+\usepackage{graphicx}
+\usepackage{marvosym}
+\usepackage{amssymb}  % provides \gtrsim
+\usepackage{ellipse}
+\usepackage{fancyvrb}
+\usepackage{ulem}  % provides \sout
+\usepackage[cm]{sfmath}
+
+\newif\ifrubric
+% \rubrictrue
+
+% This is supposed to make underscores cut'n'pastable
+% Not sure what the lmodern package does or whether it's needed for this.
+% But it's not working (though apparently it did in nam2023)
+% \usepackage[T1]{fontenc}
+% \usepackage{lmodern}
+% \usepackage{textcomp}
+% \DeclareTextSymbolDefault{\textunderscore}{T1}
+
+\setlength{\unitlength}{1cm}
+
+
+\newcommand{\bhref}[2]{\href{#1}{{\color{blue}#2}}}
+\newcommand{\burl}[1]{{\color{blue}\url{#1}}}
+\newcommand{\rfc}[1]{\bhref{https://www.rfc-editor.org/rfc/rfc#1}
+                           {RFC\,#1}}
+
+\newcommand{\buttimg}[1]
+           {\mbox{\vtop{\vskip-2ex\hbox{\includegraphics[height=3ex]{#1}}}}}
+\newcommand{\tcicon}[1]{
+   \mbox{\vtop{\vskip-2.5ex\hbox{\includegraphics[height=3ex]{#1}}}}}
+\newcommand{\buttitem}[1]{\item[{\makebox[0cm][r]{\tcicon{#1}}}]}
+\definecolor{darkergreen}{rgb}{0,0.38,0}
+\definecolor{purple}{rgb}{0.8,0,0.8}
+
+% Fixes problem with includegraphics images screwing up colours on their
+% page in the output PDF.  I have no idea *how* it fixes it mind.
+\pdfpageattr {/Group << /S /Transparency /I true /CS /DeviceRGB>>}
+
+% Oh no, this is required on my Ubuntu 22.04 (though not 20.04) installation
+% to make the \ellipse commands work.
+\makeatletter
+\newdimen\@tempdimd
+\makeatother
+
+\begin{document}
+\sf
+
+\newcommand{\bigword}[1]{
+  \vspace*{7cm}
+  \begin{center}
+    \color{darkblue}
+    \scalebox{3}{
+      \Huge\bf #1
+    }
+  \end{center}
+  \addtocounter{page}{-1}
+}
+
+\ifrubric
+
+\rightfooter{}
+\MyLogo{}
+
+\vspace*{3cm}
+\hspace*{5cm}
+\begin{minipage}{30cm}
+\LARGE
+\begin{enumerate}
+  \item Wins
+  \item Issues
+  \item Ins and Outs of FITS
+  \item AOB
+\end{enumerate}
+\end{minipage}
+
+\newpage
+\bigword{Wins?}
+\newpage
+\bigword{Issues?}
+\newpage
+
+\fi
+
+\MyLogo{\color{grey}
+        Mark Taylor, FITS file format,
+        Bristol Astro Dev Group,
+        17 January 2025}
+\rightfooter{\quad{\color{grey}\thepage/\pageref*{lastPage}}}
+\setcounter{page}{1}
+
+\vspace*{1.0cm}
+\begin{center}
+{\color{darkblue}
+\framebox{\Huge\bf
+  \begin{minipage}{0cm}
+  \begin{tabbing}
+  Ins and Outs of FITS 
+  \end{tabbing}
+  \end{minipage}
+}}
+\\[2.0cm]
+{\Large
+  Mark Taylor
+}
+\\[2.0cm]
+{\large\color{grey}
+  Bristol Astro Dev Group
+  \\[2ex]
+  2 May 2025
+}
+\end{center}
+
+\vspace*{1.5cm}
+\begin{center}
+  \tiny
+  \color{brown}
+  \input gitid
+\end{center}
+
+\slide{Outline}
+
+
+\slide{Summary}
+
+\vspace{0.2cm}
+\begin{center}
+  {\color{darkred}\Huge\bf\sl Thanks!}
+\end{center}
+
+\label{lastPage}
+
+\ifrubric
+
+\newcommand{\aobSlide}[1]{
+\newpage
+\rightfooter{}
+\MyLogo{}
+\begin{picture}(30,0)
+  #1
+\end{picture}
+\bigword{AOB?}
+}
+\aobSlide{}
+
+\fi
+
+\end{document}
+
