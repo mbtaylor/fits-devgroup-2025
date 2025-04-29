@@ -219,23 +219,39 @@
   \end{list2}
 \end{list1}
 
-\slide{Format Overview}
+\slide{Love it or hate it?}
 
-\begin{list2}
-  \item HDU structure of file
-  \item Header syntax
-\end{list2}
+\begin{picture}(30,0)
+  \put(24,-8){\includegraphics[scale=0.45]{JTable-gaia_source.png}}
+  \put(22,-10){\includegraphics[scale=0.45]{topcat-gaia_source.png}}
+\end{picture}
+\vspace*{-1.5cm}
 
-\slide{PHDU and IMAGE extension}
-
-\slide{BINTABLE}
-
-\slide{Other extensions}
-
-\begin{list2}
-  \item Random groups (radio interferometry only --- deprecated)
-  \item ASCII table
-\end{list2}
+\begin{list1}
+  \item I like it
+  \begin{list2big}
+    \item Great for memory-mapped data access in TOPCAT/STILTS
+    \item Easy to write a performant I/O library
+  \end{list2big}
+  \item The Pope likes (liked) it
+  \begin{list2big}
+    \item In 2010 the Vatican library 
+          \bhref{https://www.vaticanlibrary.va/en/the-collections/in-digitalizzation.html}
+                {announced decision} \\
+          to digitise 80k documents using FITS
+  \end{list2big}
+  \item The astronomy community is divided
+  \begin{list2big}
+    \item There are frequent attempts to move \\
+          to more modern/capable formats \\
+          (HDF5, ASDF, VOTable, Parquet)
+    \item Papers published bemoaning FITS limitations,
+          \\ e.g.\
+          \bhref{https://ui.adsabs.harvard.edu/abs/2015A&C....12..133T}
+                {Thomas et al., A\&C {\sl 12}, p.133 (2015)}
+    \item But FITS keeps not dying
+  \end{list2big}
+\end{list1}
 
 \slide{Tools}
 
