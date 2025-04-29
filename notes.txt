@@ -1,0 +1,72 @@
+
+ - Bit rambling
+    - history, pros and cons, tools, future, culture, format, ...
+    - you're going to come across FITS
+ - I like FITS
+ - the Pope likes FITS
+     - In 2010 decision to digitise 80k documents in Vatican library using FITS
+     - https://evangelicaltextualcriticism.blogspot.com/2010/03/80000-vatican-mss-to-be-digitized.html
+     - https://www.vaticanlibrary.va/en/the-collections/in-digitalizzation.html
+ - History
+    - A&A paper 1981 (Wells, Greisen and Harten):
+       - https://ui.adsabs.harvard.edu/abs/1981A%26AS...44..363W/abstract
+       "adoption of a unique interchange tape format to be used for
+        transferring digital imagery between cooperating institutions"
+       "All records will have a length of 23040 bits (2880 8-bit bytes,
+        3840 6-bit bytes).  This length is evenly divisible by both
+        the byte and word lengths of all computers that have been sold in
+        the commercial market (i.e., 6, 8, 12, 16, 18, 24, 32, 36, 48, 60 and
+        64 bits)"
+    - NRAO, VLA, Westerbork, Kitt Peak
+    - roots a bit before, late 70s
+   
+ - Predictable layout of images and tables
+    - memory mapping
+ - Flexible Image Transport System
+ - Format details
+    - HDU structure
+    - Header cards
+    - Can't stream
+       - hence VOTable
+    - Primary and extension HDUs
+    - Block size 2880
+    - Bigendian
+    - Data types (BITPIX)
+    - informed by FORTRAN77
+    - NULL/TNULLn, NaN
+    - trailing blanks in keywords not significant
+    - BSCALE/BZERO
+       - originally for fp values of int data, but also e.g. flux conversion
+    - ASCII CAPITALS for keywords, 7-bit ASCII for values
+    - BINTABLE normally fixed-length records
+    - EXTNAME
+ - Once FITS forever FITS
+ - Standard is readable
+ - WCS - complicated but incomplete (inflexible, no combination)
+ - Conventions registry
+ - Slow moving, conservative
+ - envy of other communities
+ - data + metadata
+ - FITS-plus
+ - Limitations
+    - NAXIS999
+    - TNAME999
+ - Show primary/array HDU
+ - Show BINTABLE HDU
+ - compression
+ - tools
+    - more(1) - 80 character terminal
+    - vi -b
+    - fitsverify
+    - ftools
+    - topcat/stilts - show /mbt/bigdata/gaia-dr2/gaia_source/gaia_source.colfits
+    - CFITSIO
+ - drawbacks
+    - no versioning
+    - data model
+    - no namespacing
+    - no association between HDUs (except EXTNAME)
+ - extensions
+    - HIERARCH
+    - 4.2.1.2 long-string
+
