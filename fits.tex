@@ -123,6 +123,133 @@
 
 \slide{Outline}
 
+\begin{list0}
+  \item {\bf Flexible Image Transport System}
+\end{list0}
+
+\slide{Why am I talking about FITS?}
+
+\begin{list1}
+  \item Hattie had a problem with a FITS file that was quite easy to fix
+  \begin{list2big}
+    \item[] ... if you know a little bit about the format
+  \end{list2big}
+  \item Fergus asked me to
+  \item You will have to use FITS files
+  \item It's a good format for a lot of things,
+        useful to know its pros and cons
+\end{list1}
+
+
+\slide{FITS History}
+
+\begin{list1}
+  \item Roots in the late 1970s
+  \begin{list2big}
+    \item Work at NRAO, Westerbork, Kitt Peak
+  \end{list2big}
+  \item First published proposal
+        \bhref{https://ui.adsabs.harvard.edu/abs/1981A&AS...44..363W}
+              {Wells, Greisen and Harten, A{\&}A {\sl 44}, p.363 (1981)}
+  \begin{list2big}
+    \item {\sl
+           ``adoption of a unique interchange tape format to be used for
+             transferring digital imagery between cooperating institutions''}
+    \item Integer data only (but with provision for real scaling)
+  \end{list2big}
+  \item FITS standard versions:
+  \begin{list2big}
+     \item[1993] v1.0 --- IEEE754 floating point values, ASCII table extension
+     \item[1998] v1.2 --- IMAGE and BINTABLE extensions
+     \item[2005] v2.1b --- 64-bit integers
+     \item[2008] v3.0 --- WCS (celestial and spectral)
+     \item[2018] v4.0 --- compression, long string keywords, WCS (time)
+  \end{list2big}
+\end{list1}
+
+\slide{Pros and Cons}
+\vspace*{-0.5cm}
+
+\begin{list1}
+  \item Standard, widely used, lots of software
+\vspace*{-0.2cm}
+  \begin{list2}
+    \item Envied by other disciplines who lack standard formats
+\vspace*{-0.1cm}
+  \end{list2}
+  \item Format definition is published, well-defined, readable
+        (not defined by software)
+  \item Stable.  Conservative.  Changes very slowly.
+\vspace*{-0.2cm}
+  \begin{list2}
+    \item {\sl ``Once FITS forever FITS''}
+\vspace*{-0.1cm}
+  \end{list2}
+  \item Data and metadata simple to read and write
+\vspace*{-0.2cm}
+  \begin{list2}
+    \item By design --- initial implementations were in FORTRAN
+\vspace*{-0.1cm}
+    \item Data model very limited
+\vspace*{-0.1cm}
+    \item Metadata model primitive and flat
+\vspace*{-0.1cm}
+  \end{list2}
+  \item World Coordinate System metadata included
+\vspace*{-0.2cm}
+  \begin{list2}
+    \item Fairly capable (sky, time, spectra) but inflexible
+\vspace*{-0.1cm}
+  \end{list2}
+  \item Predictable layout of image and table data
+\vspace*{-0.2cm}
+  \begin{list2}
+    \item Good for memory mapping and random access
+\vspace*{-0.1cm}
+  \end{list2}
+  \item Some content restrictions
+\vspace*{-0.2cm}
+  \begin{list2}
+    \item $\le$999 table columns (and $\le$999 image dimensions)
+\vspace*{-0.1cm}
+    \item Not possible to stream table data (row count required up front)
+\vspace*{-0.1cm}
+    \item Not optimised for parallel I/O
+\vspace*{-0.1cm}
+  \end{list2}
+\end{list1}
+
+\slide{Format Overview}
+
+\begin{list2}
+  \item HDU structure of file
+  \item Header syntax
+\end{list2}
+
+\slide{PHDU and IMAGE extension}
+
+\slide{BINTABLE}
+
+\slide{Other extensions}
+
+\begin{list2}
+  \item Random groups (radio interferometry only --- deprecated)
+  \item ASCII table
+\end{list2}
+
+\slide{Tools}
+
+\begin{list2}
+  \item more
+  \item vi -b
+  \item FTOOLS
+  \begin{list3}
+    \item fverify 
+    \item lots more
+  \end{list3}
+  \item \bhref{https://fits.gsfc.nasa.gov/fits_verify.html}{online fitsverify}
+        --- limit 40Mb
+\end{list2}
 
 \slide{Summary}
 
