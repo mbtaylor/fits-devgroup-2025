@@ -510,6 +510,68 @@
   \end{list2big}
 \end{list0}
 
+\slide{BINTABLE extension HDU}
+
+\begin{SaveVerbatim}[commandchars=\\\{\}]{tblhdu}
+\g XTENSION= 'BINTABLE'           / binary table extension
+\g BITPIX  =                    8 / 8-bit bytes
+\g NAXIS   =                    2 / 2-dimensional table
+\g NAXIS1  =                   36 / width of table in bytes
+\g NAXIS2  =                10000 / number of rows in table
+\g PCOUNT  =             40960000 / heap size (no gap)
+\g GCOUNT  =                    1 / one data group
+\g TFIELDS =                    5 / number of columns
+ EXTNAME = 'SimulatedSky-10000' / table name
+ TTYPE1  = 'source_id'          / label for column 1
+ TFORM1  = 'K       '           / format for column 1
+ TTYPE2  = 'ra      '           / label for column 2
+ TFORM2  = 'E       '           / format for column 2
+ TUNIT2  = 'deg     '           / units for column 2
+ TCOMM2  = 'ICRS Right Ascension'
+ TUCD2   = 'pos.eq.ra'          / VO Unified Content Descriptor for column 2
+ TTYPE3  = 'dec     '           / label for column 3
+ TFORM3  = 'E       '           / format for column 3
+ TUNIT3  = 'deg     '           / units for column 3
+ TCOMM3  = 'ICRS Declination'
+ TUCD3   = 'pos.eq.dec'         / VO Unified Content Descriptor for column 3
+ TTYPE4  = 'name    '           / label for column 4
+ TFORM4  = '12A     '           / format for column 4
+ TTYPE5  = 'spectrum'           / label for column 5
+ TFORM5  = 'PJ(1024)'           / format for column 5
+ DATE-HDU= '2025-04-30T15:48:39' / Date of HDU creation (UTC)
+ STILVERS= '4.3-2   '           / Version of STIL software
+ STILCLAS= 'uk.ac.starlink.votable.UnifiedFitsTableWriter' / STIL Author class
+\g END
+\end{SaveVerbatim}
+
+\begin{picture}(30,0)
+  \put(19,-15){{\color{brown}\tiny\BUseVerbatim{tblhdu}}}
+\end{picture}
+\vspace*{-1.5cm}
+
+\begin{list0}
+  \item BINTABLE HDU header:
+  \begin{list2big}
+    \item Contains tabular data \\
+          (fixed number of rows and columns)
+    \item Must start {\color{brown}\verb*|XTENSION= 'BINTABLE'|}
+    \item Always {\color{brown}\tt BITPIX = 8},
+                 {\color{brown}\tt NAXIS = 2},
+                 {\color{brown}\tt GCOUNT = 1}
+    \item {\color{brown}\tt PCOUNT} gives size of heap for variable-length cells
+    \item {\color{brown}\tt TXXXXn} describe column {\sl n}
+    \begin{list3}
+      \item Hence maximum column count of 999
+    \end{list3}
+    \item {\color{brown}\tt TFORMn} gives format of column {\sl n},
+          required
+    \begin{list3}
+      \item Uses FORTRAN-like format descriptors
+    \end{list3}
+    \item Other {\color{brown}\tt TXXXXn} keywords optional
+  \end{list2big}
+\end{list0}
+
 
 
 \slide{Tools}
