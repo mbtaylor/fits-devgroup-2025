@@ -134,7 +134,7 @@
   \begin{list2big}
     \item[] ... if you know a little bit about the format
   \end{list2big}
-  \item Fergus asked me to
+  \item Fergus suggested it
   \item You will have to use FITS files
   \item It's a good format for a lot of things,
         useful to know its pros and cons
@@ -146,9 +146,9 @@
 \begin{list1}
   \item Roots in the late 1970s
   \begin{list2big}
-    \item Work at NRAO, Westerbork, Kitt Peak
+    \item Work at NRAO, Kitt Peak, Westerbork
   \end{list2big}
-  \item First published proposal
+  \item 1981: First published proposal
         \bhref{https://ui.adsabs.harvard.edu/abs/1981A&AS...44..363W}
               {Wells, Greisen and Harten, A{\&}A {\sl 44}, p.363 (1981)}
   \begin{list2big}
@@ -157,6 +157,7 @@
              transferring digital imagery between cooperating institutions''}
     \item Integer data only (but with provision for real scaling)
   \end{list2big}
+  \item 1982: Endorsed by IAU
   \item FITS standard versions:
   \begin{list2big}
      \item[1993] v1.0 --- IEEE754 floating point values, ASCII table extension
@@ -192,7 +193,7 @@
 \vspace*{-0.1cm}
     \item Data model very limited
 \vspace*{-0.1cm}
-    \item Metadata model primitive and flat
+    \item Metadata model primitive and flat, ASCII-only
 \vspace*{-0.1cm}
   \end{list2}
   \item World Coordinate System metadata included
@@ -240,11 +241,11 @@
                 {announced decision} \\
           to digitise 80k documents using FITS
   \end{list2big}
-  \item The astronomy community is divided
+  \item The astronomy community is ambivalent
   \begin{list2big}
     \item There are frequent attempts to move \\
           to more modern/capable formats \\
-          (HDF5, ASDF, VOTable, Parquet)
+          (HDF5, ASDF, VOTable, Parquet, ...)
     \item Papers published bemoaning FITS limitations,
           \\ e.g.\
           \bhref{https://ui.adsabs.harvard.edu/abs/2015A&C....12..133T}
@@ -252,6 +253,68 @@
     \item But FITS keeps not dying
   \end{list2big}
 \end{list1}
+
+\slide{Format Overview}
+
+\begin{picture}(30,0)
+  \put(23,-15){\includegraphics[height=15cm]{fig31_fitsformat.png}}
+  \put(32,-16){{\small Credit: \bhref{https://hst-docs.stsci.edu/hstdhb/3-hst-file-formats/3-2-fits-file-format}{STScI}}}
+\end{picture}
+\vspace*{-1.5cm}
+
+\begin{list0}
+  \item Organisation of a FITS file:
+  \begin{list2}
+    \item Sequence of Header $+$ Data Units (HDUs)
+\vspace*{-0.1cm}
+    \begin{list3}
+      \item Exactly one Primary HDU (PHDU)
+      \begin{list4}
+        \item Data (if present) must be image-like
+      \end{list4}
+      \item Zero or more Extension HDUs
+      \begin{list4}
+        \item Data (if present) may be image- or table-like
+              (or, rarely, other things)
+      \end{list4}
+    \end{list3}
+    \item Each HDU has a Header part and, optionally, a Data part
+\vspace*{-0.1cm}
+    \item Image data is an N-dimensional array of a single primitive data type
+\vspace*{-0.1cm}
+    \item Table data is a sequence of rows of typed columns 
+\vspace*{-0.1cm}
+    \begin{list3}
+      \item Each column type is a primitive or N-dimensional array of primitives
+    \end{list3}
+    \item Primitive data types are big-endian 8/16/32/64-bit ints,
+                                              32/64-bit IEEE754 floats
+\vspace*{-0.1cm}
+    \begin{list4}
+      \item No strings as such, but you can use arrays of bytes (ASCII)
+    \end{list4}
+    \item File consists of 2880-byte blocks
+\vspace*{-0.1cm}
+    \begin{list4}
+      \item Header and Data parts aligned on block boundaries, must pad to end
+      \item File length is \underline{always} a multiple of 2880
+            \hspace*{1em} {\color{darkred}\sl $\leftarrow$ useful fact!}
+      \item[] \hspace*{1.5em}
+              \begin{minipage}{25cm}
+                {\sl\small\color{darkgrey}
+                ``All records will have a length of 23040 bits
+                  (2880 8-bit bytes, 3840 6-bit bytes).\\
+                  This length is evenly divisible by both the byte and word
+                  lengths of all computers \\
+                  that have been sold in the commercial market
+                  (i.e., 6, 8, 12, 16, 18, 24, 32, \\
+                  36, 48, 60 and 64 bits)''}
+              \end{minipage}
+    \end{list4}
+  \end{list2}
+\end{list0}
+
+
 
 \slide{Tools}
 
