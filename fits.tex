@@ -270,13 +270,18 @@
     \begin{list3}
       \item Exactly one Primary HDU (PHDU)
       \begin{list4}
+\vspace*{-0.2cm}
         \item Data (if present) must be image-like
+\vspace*{-0.2cm}
       \end{list4}
       \item Zero or more Extension HDUs
       \begin{list4}
+\vspace*{-0.2cm}
         \item Data (if present) may be image- or table-like
               (or, rarely, other things)
+\vspace*{-0.2cm}
       \end{list4}
+      \item Only way to know how many HDUs is to keep reading
     \end{list3}
 \vspace*{-0.2cm}
     \item Each HDU has a Header part and, optionally, a Data part
@@ -321,30 +326,34 @@
 \slide{Header Format}
 
 \begin{list0}
-\vspace*{-0.1cm}
+\vspace*{-0.15cm}
   \item Header is a sequence of 80-character ``cards''
-\vspace*{-0.1cm}
+\vspace*{-0.15cm}
   \begin{list2big}
     \item Mostly {\color{brown}\tt KEY = value}
     \begin{list3}
       \item Fixed format:
             {\color{brown}\verb*|KEY      = value... / comment...|}
-      \item Keyword is $\le 8$ characters,
+      \item Max keyword length: 8 characters,
             {\color{brown}\verb|[A-Z0-9_-]|}
       \item Value is 7-bit ASCII string, integer, float, complex or boolean
+      \item Max value length for string: 68 characters
+            (though FITS 4.0 has long strings using {\color{brown}\tt CONTINUE})
       \item Trailing spaces in keyword and string values not significant
+\vspace*{-0.15cm}
     \end{list3}
-\vspace*{-0.1cm}
+\vspace*{-0.15cm}
     \item Some other miscellaneous card types:
-\vspace*{-0.1cm}
+\vspace*{-0.15cm}
     \begin{list3}
       \item {\color{brown}\tt COMMENT},
             {\color{brown}\tt HISTORY},
             {\color{brown}\tt CONTINUE},
             {\color{brown}\tt END},
             blank record
+\vspace*{-0.15cm}
     \end{list3}
-\vspace*{-0.1cm}
+\vspace*{-0.15cm}
     \item Some keywords defined by FITS standard
 \vspace*{-0.1cm}
     \begin{list3}
@@ -356,6 +365,7 @@
                 {\color{brown}\tt NAXIS},
                 {\color{brown}\tt PCOUNT},
                 ...
+\vspace*{-0.15cm}
       \end{list4}
       \item Reserved: useful items to describe data and metadata, incl.\ WCS
       \begin{list4}
@@ -366,6 +376,7 @@
                 {\color{brown}\tt TELESCOP},
                 {\color{brown}\tt TTYPEn},
                 {\color{brown}\tt WCSAXESa}, ...
+\vspace*{-0.15cm}
       \end{list4}
       \item Otherwise: add any headers you want! (subject to syntax)
       \begin{list4}
@@ -373,15 +384,132 @@
         \item There is a
               \bhref{https://fits.gsfc.nasa.gov/fits_conventions.html}
                     {Registry of FITS conventions}
+\vspace*{-0.15cm}
       \end{list4}
+\vspace*{-0.15cm}
     \end{list3}
-\vspace*{-0.1cm}
+\vspace*{-0.15cm}
     \item Last record must be ``{\color{brown}\tt END}''
-\vspace*{-0.1cm}
+\vspace*{-0.15cm}
     \item Pad with spaces to end of 2880-character block
-\vspace*{-0.1cm}
+\vspace*{-0.15cm}
   \end{list2big}
 \end{list0}
+
+\newcommand{\g}{\color{darkgreen}}
+
+\slide{Primary HDU}
+
+\begin{SaveVerbatim}[commandchars=\\\{\}]{phdu}
+\g SIMPLE  =                    T / Written by SkyView Fri Jul 26 06:55:13 EDT 2019
+\g BITPIX  =                  -32 / 4 byte floating point
+\g NAXIS   =                    2 / Two dimensional image
+\g NAXIS1  =                  300 / Width of image
+\g NAXIS2  =                  300 / Height of image
+ CRVAL1  =                56.75 / Reference longitude
+ CRVAL2  =   24.117000000000004 / Reference latitude
+ RADESYS = 'FK5     '           / Coordinate system
+ EQUINOX =               2000.0 / Epoch of the equinox
+ CTYPE1  = 'RA---TAN'           / Coordinates -- projection
+ CTYPE2  = 'DEC--TAN'           / Coordinates -- projection
+ CRPIX1  =                150.5 / X reference pixel
+ CRPIX2  =                150.5 / Y reference pixel
+ CDELT1  = -0.00047222219999999997 / X scale
+ CDELT2  = 0.00047222219999999997 / Y scale
+ COMMENT
+ COMMENT SkyView Survey metadata
+ COMMENT
+ COMMENT Provenance:  Data taken by ROE and AAO, CalTech, Compression
+ COMMENT              and distribution by Space Telescope Science Institute
+ ...
+\g END
+\end{SaveVerbatim}
+
+\begin{picture}(30,0)
+  \put(19,-12){{\color{brown}\tiny\BUseVerbatim{phdu}}}
+\end{picture}
+\vspace*{-1.5cm}
+
+\begin{list0}
+  \item Primary HDU header:
+  \begin{list2big}
+    \item Must start {\color{brown}\verb*|SIMPLE  =                    T|}
+    \item Contains an {\color{brown}\tt NAXIS}-dimensional array
+    \item {\color{darkgreen}\tt SIMPLE},
+          {\color{darkgreen}\tt BITPIX},
+          {\color{darkgreen}\tt NAXIS},
+          {\color{darkgreen}\tt NAXISn} \\
+          must appear at the start, in that order
+    \item {\color{brown}\tt BITPIX} defines array data type
+    \begin{list3}
+      \item 8, 16, 32, 64 $\rightarrow$ 8, 16, 32, 64-bit integer
+      \item -32, -64 $\rightarrow$ 32, 64-bit floating point
+    \end{list3}
+    \item {\color{brown}\tt NAXIS},
+          {\color{brown}\tt NAXISn} define dimensions of data array
+    \begin{list3}
+      \item[] {\footnotesize
+               $N_{bits} = |{\sc BITPIX}| \times 
+               ({\sc NAXIS1} \times {\sc NAXIS2} \times ...
+                             \times {\sc NAXISm})$}
+    \end{list3}
+    \item {\color{brown}\tt NAXIS} may be zero for dataless PHDU
+  \end{list2big}
+\end{list0}
+
+\slide{IMAGE extension HDU}
+
+\begin{SaveVerbatim}[commandchars=\\\{\}]{imghdu}
+\g XTENSION= 'IMAGE   '           / IMAGE extension
+\g BITPIX  =                   16 / number of bits per data pixel
+\g NAXIS   =                    2 / number of data axes
+\g NAXIS1  =                 2080 / length of data axis 1
+\g NAXIS2  =                 4608 / length of data axis 2
+\g PCOUNT  =                    0 / required keyword; must = 0
+\g GCOUNT  =                    1 / required keyword; must = 1
+ BZERO   =                32768 / offset data range to that of unsigned short
+ BSCALE  =                    1 / default scaling factor
+ INHERIT =                    F / inherit the primary header
+ DATATYPE= 'Intensity'          / Type of Data
+ CTYPE1  = 'RA---TAN'           / R.A. in tangent plane projection
+ CRPIX1  =     3134.50385556327 / Ref pix of axis 1
+ CRVAL1  =     24.1738207380909 / RA at Ref pix in decimal degrees
+ CTYPE2  = 'DEC--TAN'           / DEC. in tangent plane projection
+ CRPIX2  =      2288.6460190062 / Ref pix of axis 2
+ CRVAL2  =     15.7831584515202 / DEC at Ref pix in decimal degrees
+ CD1_1   = 1.59032708066515E-05 / WCS matrix element 1 1
+ CD1_2   = -1.24467859737424E-05 / WCS matrix element 1 2
+ CD2_1   = -1.24395002801856E-05 / WCS matrix element 2 1
+ CD2_2   = -1.59256867637214E-05 / WCS matrix element 2 2
+ RADECSYS= 'FK5     '           / R.A./DEC. coordinate system reference
+ EQUINOX =                2000. / Equinox of coordinate system
+ MJD-OBS =     52135.5547471556 / MJD of start of obseration
+ CCDNAME = 'EEV 9273-16-03'     / CCD chip name(s)
+ AMPNAME = 'EEV 9273-16-03, right' / Amplifier name(s)
+ GAIN    =     2.03999996185303 / Amplifier gain
+ RDNOISE =                  3.5 / Readout noise
+ EXTVER  =                   -1 / Number assigned to a FITS extension.
+ ...
+\g END
+\end{SaveVerbatim}
+
+\begin{picture}(30,0)
+  \put(19,-16){{\color{brown}\tiny\BUseVerbatim{imghdu}}}
+\end{picture}
+\vspace*{-1.5cm}
+
+\begin{list0}
+  \item IMAGE extension HDU header:
+  \begin{list2big}
+    \item Basically the same as Primary HDU
+    \begin{list3}
+       \item ... but must start {\color{brown}\verb*|XTENSION= 'IMAGE   '|}
+       \item and must have {\color{brown}\tt PCOUNT = 0}, 
+                           {\color{brown}\tt GCOUNT = 1} as listed
+    \end{list3}
+  \end{list2big}
+\end{list0}
+
 
 
 \slide{Tools}
@@ -391,7 +519,7 @@
   \item vi -b
   \item FTOOLS
   \begin{list3}
-    \item fverify 
+    \item fverify
     \item lots more
   \end{list3}
   \item \bhref{https://fits.gsfc.nasa.gov/fits_verify.html}{online fitsverify}
