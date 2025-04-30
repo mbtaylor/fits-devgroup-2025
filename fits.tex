@@ -266,7 +266,7 @@
   \item Organisation of a FITS file:
   \begin{list2}
     \item Sequence of Header $+$ Data Units (HDUs)
-\vspace*{-0.1cm}
+\vspace*{-0.2cm}
     \begin{list3}
       \item Exactly one Primary HDU (PHDU)
       \begin{list4}
@@ -278,24 +278,28 @@
               (or, rarely, other things)
       \end{list4}
     \end{list3}
+\vspace*{-0.2cm}
     \item Each HDU has a Header part and, optionally, a Data part
-\vspace*{-0.1cm}
+\vspace*{-0.2cm}
     \item Image data is an N-dimensional array of a single primitive data type
-\vspace*{-0.1cm}
+\vspace*{-0.2cm}
     \item Table data is a sequence of rows of typed columns 
-\vspace*{-0.1cm}
+\vspace*{-0.2cm}
     \begin{list3}
       \item Each column type is a primitive or N-dimensional array of primitives
     \end{list3}
+\vspace*{-0.2cm}
     \item Primitive data types are big-endian 8/16/32/64-bit ints,
                                               32/64-bit IEEE754 floats
-\vspace*{-0.1cm}
-    \begin{list4}
+    \begin{list3}
       \item No strings as such, but you can use arrays of bytes (ASCII)
-    \end{list4}
+    \end{list3}
+\vspace*{-0.2cm}
+    \item Arrays are column-major (like FORTRAN, not like C/Python)
+\vspace*{-0.2cm}
     \item File consists of 2880-byte blocks
-\vspace*{-0.1cm}
-    \begin{list4}
+\vspace*{-0.2cm}
+    \begin{list3}
       \item Header and Data parts aligned on block boundaries, must pad to end
       \item File length is \underline{always} a multiple of 2880
             \hspace*{1em} {\color{darkred}\sl $\leftarrow$ useful fact!}
@@ -310,10 +314,74 @@
                   (i.e., 6, 8, 12, 16, 18, 24, 32, \\
                   36, 48, 60 and 64 bits)''}
               \end{minipage}
-    \end{list4}
+    \end{list3}
   \end{list2}
 \end{list0}
 
+\slide{Header Format}
+
+\begin{list0}
+\vspace*{-0.1cm}
+  \item Header is a sequence of 80-character ``cards''
+\vspace*{-0.1cm}
+  \begin{list2big}
+    \item Mostly {\color{brown}\tt KEY = value}
+    \begin{list3}
+      \item Fixed format:
+            {\color{brown}\verb*|KEY      = value... / comment...|}
+      \item Keyword is $\le 8$ characters,
+            {\color{brown}\verb|[A-Z0-9_-]|}
+      \item Value is 7-bit ASCII string, integer, float, complex or boolean
+      \item Trailing spaces in keyword and string values not significant
+    \end{list3}
+\vspace*{-0.1cm}
+    \item Some other miscellaneous card types:
+\vspace*{-0.1cm}
+    \begin{list3}
+      \item {\color{brown}\tt COMMENT},
+            {\color{brown}\tt HISTORY},
+            {\color{brown}\tt CONTINUE},
+            {\color{brown}\tt END},
+            blank record
+    \end{list3}
+\vspace*{-0.1cm}
+    \item Some keywords defined by FITS standard
+\vspace*{-0.1cm}
+    \begin{list3}
+      \item Mandatory: define layout of data unit
+      \begin{list4}
+        \item[] {\color{brown}\tt SIMPLE},
+                {\color{brown}\tt EXTENSION},
+                {\color{brown}\tt BITPIX},
+                {\color{brown}\tt NAXIS},
+                {\color{brown}\tt PCOUNT},
+                ...
+      \end{list4}
+      \item Reserved: useful items to describe data and metadata, incl.\ WCS
+      \begin{list4}
+        \item[] {\color{brown}\tt DATE},
+                {\color{brown}\tt BSCALE},
+                {\color{brown}\tt BUNIT},
+                {\color{brown}\tt DATAMAX},
+                {\color{brown}\tt TELESCOP},
+                {\color{brown}\tt TTYPEn},
+                {\color{brown}\tt WCSAXESa}, ...
+      \end{list4}
+      \item Otherwise: add any headers you want! (subject to syntax)
+      \begin{list4}
+        \item Write down somewhere what they mean ... or don't ...
+        \item There is a
+              \bhref{https://fits.gsfc.nasa.gov/fits_conventions.html}
+                    {Registry of FITS conventions}
+      \end{list4}
+    \end{list3}
+\vspace*{-0.1cm}
+    \item Last record must be ``{\color{brown}\tt END}''
+\vspace*{-0.1cm}
+    \item Pad with spaces to end of 2880-character block
+\vspace*{-0.1cm}
+  \end{list2big}
+\end{list0}
 
 
 \slide{Tools}
