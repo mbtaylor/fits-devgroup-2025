@@ -123,50 +123,64 @@
 
 \slide{Outline}
 
+\begin{list1}
+  \item History
+  \item Pros and cons
+  \item Format details
+  \item Useful tools
+\end{list1}
+
+% \slide{Why am I talking about FITS?}
+% 
+% \begin{list1}
+%   \item Hattie had a problem with a FITS file that was quite easy to fix
+%   \begin{list2big}
+%     \item[] ... if you know a little bit about the format
+%   \end{list2big}
+%   \item Fergus suggested it
+%   \item You will have to use FITS files
+%   \item It's a good format for a lot of things,
+%         useful to know its pros and cons
+% \end{list1}
+
+
+\slide{Flexible Image Transport System}
+
 \begin{list0}
-  \item {\bf Flexible Image Transport System}
+  \item History:
+  \begin{list2big}
+    \item Roots in the late 1970s
+    \begin{list3}
+      \item Work at NRAO, Kitt Peak, Westerbork
+    \end{list3}
+    \item 1981: First published proposal
+          \bhref{https://ui.adsabs.harvard.edu/abs/1981A&AS...44..363W}
+                {Wells, Greisen and Harten, A{\&}A {\sl 44}, p.363 (1981)}
+    \begin{list3}
+      \item {\sl
+             ``adoption of a unique interchange tape format to be used for
+               transferring digital imagery between cooperating institutions''}
+      \item Integer data only (but with provision for real scaling)
+    \end{list3}
+    \item 1982: Endorsed by IAU
+    \item FITS standard versions:
+    \begin{list3}
+       \item[1993] v1.0 --- IEEE754 floating point values, ASCII table extension
+       \item[1998] v1.2 --- IMAGE and BINTABLE extensions
+       \item[2005] v2.1b --- 64-bit integers
+       \item[2008] v3.0 --- WCS (celestial and spectral)
+                   \bhref{https://doi.org/10.1051/0004-6361/201015362}
+                         {Pence et al., A\&A {\sl 524}, A42 (2010)}
+       \item[2018] v4.0 --- compression, long string keywords, WCS (time)
+    \end{list3}
+  \end{list2big}
+  \item NASA FITS Support Office:
+  \begin{list2big}
+    \item[] \burl{https://fits.gsfc.nasa.gov/}
+            \hspace*{2em}
+            {\color{darkgrey} $\longleftarrow$ for all your FITS needs}
+  \end{list2big}
 \end{list0}
-
-\slide{Why am I talking about FITS?}
-
-\begin{list1}
-  \item Hattie had a problem with a FITS file that was quite easy to fix
-  \begin{list2big}
-    \item[] ... if you know a little bit about the format
-  \end{list2big}
-  \item Fergus suggested it
-  \item You will have to use FITS files
-  \item It's a good format for a lot of things,
-        useful to know its pros and cons
-\end{list1}
-
-
-\slide{FITS History}
-
-\begin{list1}
-  \item Roots in the late 1970s
-  \begin{list2big}
-    \item Work at NRAO, Kitt Peak, Westerbork
-  \end{list2big}
-  \item 1981: First published proposal
-        \bhref{https://ui.adsabs.harvard.edu/abs/1981A&AS...44..363W}
-              {Wells, Greisen and Harten, A{\&}A {\sl 44}, p.363 (1981)}
-  \begin{list2big}
-    \item {\sl
-           ``adoption of a unique interchange tape format to be used for
-             transferring digital imagery between cooperating institutions''}
-    \item Integer data only (but with provision for real scaling)
-  \end{list2big}
-  \item 1982: Endorsed by IAU
-  \item FITS standard versions:
-  \begin{list2big}
-     \item[1993] v1.0 --- IEEE754 floating point values, ASCII table extension
-     \item[1998] v1.2 --- IMAGE and BINTABLE extensions
-     \item[2005] v2.1b --- 64-bit integers
-     \item[2008] v3.0 --- WCS (celestial and spectral)
-     \item[2018] v4.0 --- compression, long string keywords, WCS (time)
-  \end{list2big}
-\end{list1}
 
 \slide{Pros and Cons}
 \vspace*{-0.5cm}
@@ -183,7 +197,8 @@
   \item Stable.  Conservative.  Changes very slowly.
 \vspace*{-0.2cm}
   \begin{list2}
-    \item {\sl ``Once FITS forever FITS''}
+    \item {\sl ``Once FITS forever FITS''}.
+          FITS files not versioned.
 \vspace*{-0.1cm}
   \end{list2}
   \item Data and metadata simple to read and write
@@ -193,7 +208,7 @@
 \vspace*{-0.1cm}
     \item Data model very limited
 \vspace*{-0.1cm}
-    \item Metadata model primitive and flat, ASCII-only
+    \item Metadata model primitive and flat, no namespacing, ASCII-only
 \vspace*{-0.1cm}
   \end{list2}
   \item World Coordinate System metadata included
@@ -243,13 +258,13 @@
   \end{list2big}
   \item The astronomy community is ambivalent
   \begin{list2big}
-    \item There are frequent attempts to move \\
-          to more modern/capable formats \\
-          (HDF5, ASDF, VOTable, Parquet, ...)
     \item Papers published bemoaning FITS limitations,
           \\ e.g.\
           \bhref{https://ui.adsabs.harvard.edu/abs/2015A&C....12..133T}
                 {Thomas et al., A\&C {\sl 12}, p.133 (2015)}
+    \item There are frequent attempts to move \\
+          to more modern/capable formats \\
+          (HDF5, ASDF, VOTable, Parquet, ...)
     \item But FITS keeps not dying
   \end{list2big}
 \end{list1}
@@ -307,7 +322,7 @@
     \begin{list3}
       \item Header and Data parts aligned on block boundaries, must pad to end
       \item File length is \underline{always} a multiple of 2880
-            \hspace*{1em} {\color{darkred}\sl $\leftarrow$ useful fact!}
+            \hspace*{1em} {\color{darkred}\sl $\longleftarrow$ useful fact!}
       \item[] \hspace*{1.5em}
               \begin{minipage}{25cm}
                 {\sl\small\color{darkgrey}
@@ -523,21 +538,22 @@
 \g TFIELDS =                    5 / number of columns
  EXTNAME = 'SimulatedSky-10000' / table name
  TTYPE1  = 'source_id'          / label for column 1
- TFORM1  = 'K       '           / format for column 1
+\g TFORM1  = 'J       '           / format for column 1
+ TNULL1  =          -2147483648 / blank value for column 1
  TTYPE2  = 'ra      '           / label for column 2
- TFORM2  = 'E       '           / format for column 2
+\g TFORM2  = 'E       '           / format for column 2
  TUNIT2  = 'deg     '           / units for column 2
  TCOMM2  = 'ICRS Right Ascension'
  TUCD2   = 'pos.eq.ra'          / VO Unified Content Descriptor for column 2
  TTYPE3  = 'dec     '           / label for column 3
- TFORM3  = 'E       '           / format for column 3
+\g TFORM3  = 'E       '           / format for column 3
  TUNIT3  = 'deg     '           / units for column 3
  TCOMM3  = 'ICRS Declination'
  TUCD3   = 'pos.eq.dec'         / VO Unified Content Descriptor for column 3
  TTYPE4  = 'name    '           / label for column 4
- TFORM4  = '12A     '           / format for column 4
+\g TFORM4  = '12A     '           / format for column 4
  TTYPE5  = 'spectrum'           / label for column 5
- TFORM5  = 'PJ(1024)'           / format for column 5
+\g TFORM5  = 'PJ(1024)'           / format for column 5
  DATE-HDU= '2025-04-30T15:48:39' / Date of HDU creation (UTC)
  STILVERS= '4.3-2   '           / Version of STIL software
  STILCLAS= 'uk.ac.starlink.votable.UnifiedFitsTableWriter' / STIL Author class
@@ -559,38 +575,166 @@
                  {\color{brown}\tt NAXIS = 2},
                  {\color{brown}\tt GCOUNT = 1}
     \item {\color{brown}\tt PCOUNT} gives size of heap for variable-length cells
-    \item {\color{brown}\tt TXXXXn} describe column {\sl n}
+    \item {\color{brown}\tt TXXXXnnn} describe column {\sl nnn}
     \begin{list3}
       \item Hence maximum column count of 999
     \end{list3}
-    \item {\color{brown}\tt TFORMn} gives format of column {\sl n},
+    \item {\color{brown}\tt TFORMnnn} gives format of column {\sl nnn},
           required
     \begin{list3}
       \item Uses FORTRAN-like format descriptors
     \end{list3}
-    \item Other {\color{brown}\tt TXXXXn} keywords optional
+    \item Other {\color{brown}\tt TXXXXnnn} keywords optional
+    \item Row count required in header $\Rightarrow$ can't stream
   \end{list2big}
 \end{list0}
 
+\slide{Other HDU Types}
+
+\begin{list1}
+  \item ASCII Table extension
+  \begin{list2big}
+    \item {\color{brown}\verb*|XTENSION= 'TABLE  '|}
+    \item Similar functionality to BINTABLE but less flexible and efficient
+    \item Human readable (ASCII)
+    \item Not often used
+  \end{list2big}
+  \item Random Groups structure
+  \begin{list2big}
+    \item Lives inside Primary HDU
+    \item Weird and obsolete
+  \end{list2big}
+  \item Compression
+  \begin{list2big}
+    \item Images and tables can be stored in compressed blocks in a BINTABLE
+          extension
+    \item Look for {\color{brown}\tt ZIMAGE}/{\color{brown}\tt ZTABLE = T}
+          and a load of other {\color{brown}\tt Z*} keywords
+  \end{list2big}
+\end{list1}
+
+\slide{Other interesting keywords/conventions}
+
+\begin{SaveVerbatim}[commandchars=\\\{\}]{hierarch}
+\rr{HIERARCH} PPAK P1F1 PVERSION = '1.0     ' / PMAS fitsheader version
+\rr{HIERARCH} PPAK P1F1 FILENAME = 'run267_00141a.fits' / original filename
+\rr{HIERARCH} PPAK P1F1 DATE = '2013-08-10T01:31:59' / file creation
+\rr{HIERARCH} PPAK P1F1 OBSERVER = 'Montoya -- Sanchez'
+\rr{HIERARCH} PPAK P1F1 OBJECT = 'obj_4_p1_IC 1528'
+\rr{HIERARCH} PPAK P1F2 FILENAME = 'run267_00142a.fits' / original filename
+\rr{HIERARCH} PPAK P1F2 DATE = '2013-08-10T01:47:46' / file creation
+\rr{HIERARCH} PPAK P1F2 OBSERVER = 'Montoya -- Sanchez'
+\rr{HIERARCH} PPAK P1F2 OBJECT = 'obj_4_p1_IC 1528'
+\rr{HIERARCH} PIPE P1 PIPE OFFX = -3.25 / IFU RA offset from ref coordinate
+\rr{HIERARCH} PIPE P1 PIPE OFFY = -3.5 / IFU DEC offset from ref coordinate
+\rr{HIERARCH} PIPE P1 PIPE CHISQ = 0.8 / CHISQ of image matching
+\rr{HIERARCH} PIPE P1 PIPE PHOTSCL = 0.912 / photometric scale factor
+\end{SaveVerbatim}
+
+\newcommand{\rr}[1]{{\color{darkblue}#1}}
+\begin{SaveVerbatim}[commandchars=\\\{\}]{continue}
+TTYPE12 = 'TimSerCnt'          / TimSerCnt : PHA multiscalar binning; 4 bands
+TUNIT12 = 'Count   '
+TZERO12 =                32768
+TDDES12 = 'D[0~3] & E[0~63] & T[0;1;16] & C[(S[msLimit1]~S[msLimit2]),((S[msLi\rr{&}'
+\rr{CONTINUE}  'mit2]+1)~S[msLimit3]),((S[msLimit3]+1)~S[msLimit4]),((S[msLimit4]+1\rr{&}'
+\rr{CONTINUE}  ')~S[msLimit5])] '
+TPACK12 = '16,64   '
+TFORM12 = '64I     '
+TDIM12  = '(4,16)  '
+1CTYP12 = 'CHANNEL '
+1CPIX12 = '(S[msLimit1]~S[msLimit2]),((S[msLimit2]+1)~S[msLimit3]),((S[msLimit\rr{&}'
+\rr{CONTINUE}  '3]+1)~S[msLimit4]),((S[msLimit4]+1)~S[msLimit5])'
+\end{SaveVerbatim}
+
+\begin{picture}(30,0)
+  \put(19,-6.5){{\color{brown}\tiny\BUseVerbatim{continue}}}
+  \put(19,-14.5){{\color{brown}\tiny\BUseVerbatim{hierarch}}}
+  \put(22,-16.5){
+     \begin{minipage}{20cm}
+       \color{darkgrey}\sl
+       Note: syntactically legal FITS, \\
+       even where non-standard semantics
+     \end{minipage}
+  }
+\end{picture}
+\vspace*{-1.5cm}
+
+\begin{list1}
+  \item Value scaling
+  \begin{list2}
+    \item {\color{brown}\tt BZERO}/{\color{brown}\tt BSCALE},
+          {\color{brown}\tt TZEROn}/{\color{brown}\tt TSCALEn}
+  \end{list2}
+  \item Blank values
+  \begin{list2}
+    \item NaN for floating point values in array/column
+    \item {\color{brown}\tt NULL}/{\color{brown}\tt TNULLn}
+          magic values for integer values in array/column
+  \end{list2}
+  \item Checksums
+  \begin{list2}
+    \item {\color{brown}\tt DATASUM} and {\color{brown}\tt CHECKSUM}
+  \end{list2}
+  \item CONTINUE records
+  \begin{list2}
+    \item Extends 80-character limit for non-standard keywords
+    \item Introduced at FITS 4.0, older software may not understand it
+  \end{list2}
+  \item HIERARCH convention
+  \begin{list2}
+    \item Adds namespacing to keywords
+    \item ... but reduces space for values
+    \item Non-standard FITS, some software may not understand it
+  \end{list2}
+\end{list1}
 
 
 \slide{Tools}
 
-\begin{list2}
-  \item more
-  \item vi -b
-  \item FTOOLS
-  \begin{list3}
-    \item fverify
-    \item lots more
-  \end{list3}
-  \item \bhref{https://fits.gsfc.nasa.gov/fits_verify.html}{online fitsverify}
-        --- limit 40Mb
-\end{list2}
+\begin{list1}
+  \item View/edit headers
+  \begin{list2}
+    \item {\color{brown}\tt cat},
+          {\color{brown}\tt more},
+          {\color{brown}\tt less}, ...
+    \item {\color{brown}\tt vim -b} (binary mode), probably other editors
+    \item[] \hspace*{1em} ... but use an 80-character terminal!
+  \end{list2}
+  \item Validation (check if file is broken)
+  \begin{list2}
+    \item {\color{brown}\tt ls -l}, check length is a multiple of 2880
+    \item {\color{brown}\tt fitsverify} (a.k.a.\ {\color{brown}\tt fverify})
+          from FTOOLS
+    \item \burl{https://fits.gsfc.nasa.gov/fits_verify.html}
+          --- but limit of 40Mb
+  \end{list2}
+  \item General purpose
+  \begin{list2}
+    \item {\tt astropy.io.fits}
+    \item FTOOLS (\burl{https://heasarc.gsfc.nasa.gov/ftools/})
+    \item CFITSIO C library
+  \end{list2}
+  \item FITS image analysis/manipulation
+  \begin{list2}
+    \item SAOImageDS9
+  \end{list2}
+  \item FITS table analysis/manipulation
+  \begin{list2}
+    \item TOPCAT/STILTS
+  \end{list2}
+\end{list1}
 
 \slide{Summary}
 
-\vspace{0.2cm}
+\begin{list1}
+  \item Love it or hate it, you will use FITS
+  \item It's old and clunky, but still does a good job
+  \item It's not that hard to understand and work with
+  \item More information: NASA FITS page
+\end{list1}
+
+\vspace{6cm}
 \begin{center}
   {\color{darkred}\Huge\bf\sl Thanks!}
 \end{center}
