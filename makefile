@@ -5,7 +5,7 @@ VCS_STAMP = gitid.tex
 STILTS = java -jar $(STILTS_JAR)
 STILTS_JAR = stilts.jar
 
-PDFLATEX = env TEXINPUTS=:/mbt/local/share/texslides pdflatex
+PDFLATEX = pdflatex
 
 build: $(DOCS:=.pdf)
 
