@@ -98,7 +98,7 @@
 \framebox{\Huge\bf
   \begin{minipage}{0cm}
   \begin{tabbing}
-  Ins and Outs of FITS 
+  Ins and Outs of FITS
   \end{tabbing}
   \end{minipage}
 }}
@@ -131,7 +131,7 @@
 \end{list1}
 
 % \slide{Why am I talking about FITS?}
-% 
+%
 % \begin{list1}
 %   \item Hattie had a problem with a FITS file that was quite easy to fix
 %   \begin{list2big}
@@ -251,7 +251,7 @@
   \end{list2big}
   \item The Pope likes (liked) it
   \begin{list2big}
-    \item In 2010 the Vatican library 
+    \item In 2010 the Vatican library
           \bhref{https://www.vaticanlibrary.va/en/the-collections/in-digitalizzation.html}
                 {announced decision} \\
           to digitise 80k documents using FITS
@@ -303,7 +303,7 @@
 \vspace*{-0.2cm}
     \item Image data is an N-dimensional array of a single primitive data type
 \vspace*{-0.2cm}
-    \item Table data is a sequence of rows of typed columns 
+    \item Table data is a sequence of rows of typed columns
 \vspace*{-0.2cm}
     \begin{list3}
       \item Each column type is a primitive or N-dimensional array of primitives
@@ -464,7 +464,7 @@
           {\color{brown}\tt NAXISn} define dimensions of data array
     \begin{list3}
       \item[] {\footnotesize
-               $N_{bits} = |{\sc BITPIX}| \times 
+               $N_{bits} = |{\sc BITPIX}| \times
                ({\sc NAXIS1} \times {\sc NAXIS2} \times ...
                              \times {\sc NAXISm})$}
     \end{list3}
@@ -519,7 +519,7 @@
     \item Basically the same as Primary HDU
     \begin{list3}
        \item ... but must start {\color{brown}\verb*|XTENSION= 'IMAGE   '|}
-       \item and must have {\color{brown}\tt PCOUNT = 0}, 
+       \item and must have {\color{brown}\tt PCOUNT = 0},
                            {\color{brown}\tt GCOUNT = 1} as listed
     \end{list3}
   \end{list2big}
@@ -694,42 +694,42 @@ TDIM12  = '(4,16)  '
 
 \begin{SaveVerbatim}{fitsverify}
 % fitsverify skysim10.fits
- 
-              fitsverify 4.20 (CFITSIO V3.470)              
-              --------------------------------              
- 
- 
+
+              fitsverify 4.20 (CFITSIO V3.470)
+              --------------------------------
+
+
 File: skysim10.fits
 
 2 Header-Data Units in this file.
- 
+
 =================== HDU 1: Primary Array ===================
- 
+
 *** Error:   Keyword #5, BITPIX is duplicated or out of order.
- 
+
  6 header keywords
- 
- Null data array; NAXIS = 0 
- 
+
+ Null data array; NAXIS = 0
+
 =================== HDU 2: BINARY Table ====================
- 
+
  30 header keywords
- 
+
  SimulatedSky-10000  (5 columns x 10000 rows)
- 
+
  Col# Name (Units)       Format
-   1 source_id            J         
-   2 ra (deg)             E         
-   3 dec (deg)            E         
-   4 name                 12A       
-   5 spectrum             PJ(1024)  
- 
+   1 source_id            J
+   2 ra (deg)             E
+   3 dec (deg)            E
+   4 name                 12A
+   5 spectrum             PJ(1024)
+
 ++++++++++++++++++++++ Error Summary  ++++++++++++++++++++++
- 
+
  HDU#  Name (version)       Type             Warnings  Errors
- 1                          Primary Array    0         1     
- 2     SimulatedSky-10000   Binary Table     0         0     
- 
+ 1                          Primary Array    0         1
+ 2     SimulatedSky-10000   Binary Table     0         0
+
 **** Verification found 0 warning(s) and 1 error(s). ****
 \end{SaveVerbatim}
 
@@ -826,9 +826,14 @@ File: skysim10.fits
 \begin{picture}(30,0)
   #1
 \end{picture}
-\bigword{AOB?}
+\bigword{\ \ AOB?}
 }
 \aobSlide{}
+\aobSlide{
+  \put(0,-21){\includegraphics[scale=0.85]{cylon2.png}}
+  \put(26,-21){\includegraphics[scale=0.95]{cylon1.png}}
+}
+
 
 \fi
 
