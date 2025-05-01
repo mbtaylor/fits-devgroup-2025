@@ -3,22 +3,22 @@
 \usepackage[english]{babel}
 \usepackage{graphicx}
 \usepackage{marvosym}
-\usepackage{amssymb}  % provides \gtrsim
+\usepackage{amssymb}% provides \gtrsim
 \usepackage{ellipse}
 \usepackage{fancyvrb}
-\usepackage{ulem}  % provides \sout
+\usepackage{ulem}% provides \sout
 \usepackage[cm]{sfmath}
 
 \newif\ifrubric
-% \rubrictrue
+\rubrictrue
 
-% This is supposed to make underscores cut'n'pastable
-% Not sure what the lmodern package does or whether it's needed for this.
-% But it's not working (though apparently it did in nam2023)
-% \usepackage[T1]{fontenc}
-% \usepackage{lmodern}
-% \usepackage{textcomp}
-% \DeclareTextSymbolDefault{\textunderscore}{T1}
+%This is supposed to make underscores cut'n'pastable
+%Not sure what the lmodern package does or whether it's needed for this.
+%But it's not working (though apparently it did in nam2023)
+%\usepackage[T1]{fontenc}
+%\usepackage{lmodern}
+%\usepackage{textcomp}
+%\DeclareTextSymbolDefault{\textunderscore}{T1}
 
 \setlength{\unitlength}{1cm}
 
@@ -26,10 +26,10 @@
 \newcommand{\bhref}[2]{\href{#1}{{\color{blue}#2}}}
 \newcommand{\burl}[1]{{\color{blue}\url{#1}}}
 \newcommand{\rfc}[1]{\bhref{https://www.rfc-editor.org/rfc/rfc#1}
-                           {RFC\,#1}}
+{RFC\,#1}}
 
 \newcommand{\buttimg}[1]
-           {\mbox{\vtop{\vskip-2ex\hbox{\includegraphics[height=3ex]{#1}}}}}
+{\mbox{\vtop{\vskip-2ex\hbox{\includegraphics[height=3ex]{#1}}}}}
 \newcommand{\tcicon}[1]{
    \mbox{\vtop{\vskip-2.5ex\hbox{\includegraphics[height=3ex]{#1}}}}}
 \newcommand{\buttitem}[1]{\item[{\makebox[0cm][r]{\tcicon{#1}}}]}
@@ -692,37 +692,113 @@ TDIM12  = '(4,16)  '
 
 \slide{Tools}
 
+\begin{SaveVerbatim}{fitsverify}
+% fitsverify skysim10.fits
+ 
+              fitsverify 4.20 (CFITSIO V3.470)              
+              --------------------------------              
+ 
+ 
+File: skysim10.fits
+
+2 Header-Data Units in this file.
+ 
+=================== HDU 1: Primary Array ===================
+ 
+*** Error:   Keyword #5, BITPIX is duplicated or out of order.
+ 
+ 6 header keywords
+ 
+ Null data array; NAXIS = 0 
+ 
+=================== HDU 2: BINARY Table ====================
+ 
+ 30 header keywords
+ 
+ SimulatedSky-10000  (5 columns x 10000 rows)
+ 
+ Col# Name (Units)       Format
+   1 source_id            J         
+   2 ra (deg)             E         
+   3 dec (deg)            E         
+   4 name                 12A       
+   5 spectrum             PJ(1024)  
+ 
+++++++++++++++++++++++ Error Summary  ++++++++++++++++++++++
+ 
+ HDU#  Name (version)       Type             Warnings  Errors
+ 1                          Primary Array    0         1     
+ 2     SimulatedSky-10000   Binary Table     0         0     
+ 
+**** Verification found 0 warning(s) and 1 error(s). ****
+\end{SaveVerbatim}
+
+\begin{picture}(30,0)
+  \put(22.8,-16.5){
+     \colorbox{black}{
+        \scalebox{0.85}{\tiny\color{green}\BUseVerbatim{fitsverify}}}
+     }
+\end{picture}
+\vspace*{-1.5cm}
+
+
 \begin{list1}
+\vspace*{-0.2cm}
   \item View/edit headers
+\vspace*{-0.2cm}
   \begin{list2}
+\vspace*{-0.1cm}
     \item {\color{brown}\tt cat},
           {\color{brown}\tt more},
           {\color{brown}\tt less}, ...
+\vspace*{-0.1cm}
     \item {\color{brown}\tt vim -b} (binary mode), probably other editors
+\vspace*{-0.1cm}
     \item[] \hspace*{1em} ... but use an 80-character terminal!
   \end{list2}
+\vspace*{-0.2cm}
   \item Validation (check if file is broken)
+\vspace*{-0.2cm}
   \begin{list2}
+\vspace*{-0.1cm}
     \item {\color{brown}\tt ls -l}, check length is a multiple of 2880
+\vspace*{-0.1cm}
     \item {\color{brown}\tt fitsverify} (a.k.a.\ {\color{brown}\tt fverify})
           from FTOOLS
+          \hspace*{2em} {\color{darkgrey}$\longrightarrow$}
+\vspace*{-0.1cm}
     \item \burl{https://fits.gsfc.nasa.gov/fits_verify.html}
           --- but limit of 40Mb
   \end{list2}
+\vspace*{-0.2cm}
   \item General purpose
+\vspace*{-0.2cm}
   \begin{list2}
+\vspace*{-0.1cm}
     \item {\tt astropy.io.fits}
+\vspace*{-0.1cm}
     \item FTOOLS (\burl{https://heasarc.gsfc.nasa.gov/ftools/})
+\vspace*{-0.1cm}
     \item CFITSIO C library
   \end{list2}
+\vspace*{-0.2cm}
   \item FITS image analysis/manipulation
+\vspace*{-0.2cm}
   \begin{list2}
+\vspace*{-0.1cm}
     \item SAOImageDS9
+\vspace*{-0.1cm}
+    \item GIMP
   \end{list2}
+\vspace*{-0.2cm}
   \item FITS table analysis/manipulation
+\vspace*{-0.2cm}
   \begin{list2}
+\vspace*{-0.1cm}
     \item TOPCAT/STILTS
   \end{list2}
+\vspace*{-0.2cm}
+  \item[] \hspace*{8cm} {\color{darkgrey}\sl ... and many, many more}
 \end{list1}
 
 \slide{Summary}
@@ -731,7 +807,7 @@ TDIM12  = '(4,16)  '
   \item Love it or hate it, you will use FITS
   \item It's old and clunky, but still does a good job
   \item It's not that hard to understand and work with
-  \item More information: NASA FITS page
+  \item More information: NASA FITS page \ \burl{https://fits.gsfc.nasa.gov/}
 \end{list1}
 
 \vspace{6cm}
