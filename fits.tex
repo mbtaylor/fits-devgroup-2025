@@ -340,6 +340,11 @@
 
 \slide{Header Format}
 
+\begin{picture}(30,0)
+  \put(21,-8){\includegraphics[width=16cm]{hollerith2.jpg}}
+\end{picture}
+\vspace*{-1.5cm}
+
 \begin{list0}
 \vspace*{-0.15cm}
   \item Header is a sequence of 80-character ``cards''
@@ -352,7 +357,7 @@
       \item Max keyword length: 8 characters,
             {\color{brown}\verb|[A-Z0-9_-]|}
       \item Value is 7-bit ASCII string, integer, float, complex or boolean
-      \item Max value length for string: 68 characters
+      \item Max value length for string: 68 characters \\
             (though FITS 4.0 has long strings using {\color{brown}\tt CONTINUE})
       \item Trailing spaces in keyword and string values not significant
 \vspace*{-0.15cm}
