@@ -347,13 +347,13 @@
 
 \begin{list0}
 \vspace*{-0.15cm}
-  \item Header is a sequence of 80-character ``cards''
+  \item Header is a sequence of 80-byte ``cards''
 \vspace*{-0.15cm}
   \begin{list2big}
     \item Mostly {\color{brown}\tt KEY = value}
     \begin{list3}
       \item Fixed format:
-            {\color{brown}\verb*|KEY      = value... / comment...|}
+            {\color{brown}\verb*|KEYxxxxx= value... / comment...|}
       \item Max keyword length: 8 characters,
             {\color{brown}\verb|[A-Z0-9_-]|}
       \item Value is 7-bit ASCII string, integer, float, complex or boolean
@@ -384,6 +384,7 @@
                 {\color{brown}\tt BITPIX},
                 {\color{brown}\tt NAXIS},
                 {\color{brown}\tt PCOUNT},
+                {\color{brown}\tt GCOUNT},
                 ...
 \vspace*{-0.15cm}
       \end{list4}
@@ -752,26 +753,28 @@ File: skysim10.fits
   \item View/edit headers
 \vspace*{-0.2cm}
   \begin{list2}
-\vspace*{-0.1cm}
+\vspace*{-0.2cm}
     \item {\color{brown}\tt cat},
           {\color{brown}\tt more},
           {\color{brown}\tt less}, ...
-\vspace*{-0.1cm}
+\vspace*{-0.2cm}
     \item {\color{brown}\tt vim -b} (binary mode), probably other editors
-\vspace*{-0.1cm}
+\vspace*{-0.2cm}
     \item[] \hspace*{1em} ... but use an 80-character terminal!
+\vspace*{-0.2cm}
+    \item {\color{brown}\tt fv} (from FTOOLS)
   \end{list2}
 \vspace*{-0.2cm}
   \item Validation (check if file is broken)
 \vspace*{-0.2cm}
   \begin{list2}
-\vspace*{-0.1cm}
+\vspace*{-0.2cm}
     \item {\color{brown}\tt ls -l}, check length is a multiple of 2880
-\vspace*{-0.1cm}
+\vspace*{-0.2cm}
     \item {\color{brown}\tt fitsverify} (a.k.a.\ {\color{brown}\tt fverify})
           from FTOOLS
           \hspace*{2em} {\color{darkgrey}$\longrightarrow$}
-\vspace*{-0.1cm}
+\vspace*{-0.2cm}
     \item \burl{https://fits.gsfc.nasa.gov/fits_verify.html}
           --- but limit of 40Mb
   \end{list2}
@@ -779,27 +782,27 @@ File: skysim10.fits
   \item General purpose
 \vspace*{-0.2cm}
   \begin{list2}
-\vspace*{-0.1cm}
+\vspace*{-0.2cm}
     \item {\tt astropy.io.fits}
-\vspace*{-0.1cm}
+\vspace*{-0.2cm}
     \item FTOOLS (\burl{https://heasarc.gsfc.nasa.gov/ftools/})
-\vspace*{-0.1cm}
+\vspace*{-0.2cm}
     \item CFITSIO C library
   \end{list2}
 \vspace*{-0.2cm}
   \item FITS image analysis/manipulation
 \vspace*{-0.2cm}
   \begin{list2}
-\vspace*{-0.1cm}
+\vspace*{-0.2cm}
     \item SAOImageDS9
-\vspace*{-0.1cm}
-    \item GIMP
+\vspace*{-0.2cm}
+    \item GIMP, ImageMagick, xv, ...
   \end{list2}
 \vspace*{-0.2cm}
   \item FITS table analysis/manipulation
 \vspace*{-0.2cm}
   \begin{list2}
-\vspace*{-0.1cm}
+\vspace*{-0.2cm}
     \item TOPCAT/STILTS
   \end{list2}
 \vspace*{-0.2cm}
